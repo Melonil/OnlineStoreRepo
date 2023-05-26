@@ -2,6 +2,8 @@ package com.example.onlinestore;
 
 import java.io.*;
 
+import com.example.onlinestore.service.CustomerService;
+import jakarta.ejb.EJB;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
@@ -9,11 +11,18 @@ import jakarta.servlet.annotation.*;
 public class HelloServlet extends HttpServlet {
     private String message;
 
+    @EJB
+    private CustomerService customerService;
+
+
     public void init() {
+
         message = "Hello World!";
+
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        customerService.create(new com.example.onlinestore.entity.Customer("rachidi", "yacine", "email"));
         response.setContentType("text/html");
 
         // Hello
@@ -24,5 +33,6 @@ public class HelloServlet extends HttpServlet {
     }
 
     public void destroy() {
+
     }
 }
